@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -42,4 +43,23 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //-------------------------------- Card view ---------------------------------------------------
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    //-------------------------------- Retrofit ----------------------------------------------------
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+
+    //-------------------------------- GSon converter ----------------------------------------------
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    //-------------------------------- LiveData & ViewModel ----------------------------------------
+    def lifecycle_version = "1.1.1"
+
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
+    testImplementation "android.arch.core:core-testing:$lifecycle_version"
+
+    //-------------------------------- Testing -----------------------------------------------------
+    androidTestImplementation "android.arch.core:core-testing:1.1.1"
 }
