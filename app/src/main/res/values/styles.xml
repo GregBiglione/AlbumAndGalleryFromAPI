@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--///////////////////////////////// Album author style ////////////////////////////////////-->
+   <style name="album_title_style_N">
+       <item name="android:textColor">@color/black</item>
+       <item name="android:textSize">18sp</item>
+       <item name="android:textStyle">bold</item>
+   </style>
+
+    <!--///////////////////////////////// Album author style ////////////////////////////////////-->
+    <style name="album_author_style_N">
+        <item name="android:textColor">@color/album_author</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+</resources>
