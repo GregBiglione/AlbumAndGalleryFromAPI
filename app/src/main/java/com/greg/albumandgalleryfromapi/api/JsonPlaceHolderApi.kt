@@ -8,9 +8,12 @@ import retrofit2.http.GET
 
 interface JsonPlaceHolderApi {
 
+    @GET("albums")
+    fun getAllAlbums(): Call<List<Album>>
+
     //@GET("albums")
     //fun getAllAlbums(): Call<List<Album>>
 
-    @GET("albums")
-    fun getAllAlbums(): Call<ResponseBody>
+    //@GET("albums")
+    //fun getAllAlbums(): Call<ResponseBody>
 }
