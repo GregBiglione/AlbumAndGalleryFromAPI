@@ -4,5 +4,5 @@ import com.greg.albumandgalleryfromapi.api.RetrofitService
 
 class AlbumRepository(private val retrofitService: RetrofitService) {
 
-    fun getAllAlbums() = retrofitService.getAllAlbums()
+    fun getAllAlbums() = retrofitService.getAllAlbums("title", "asc")
 }
