@@ -2,32 +2,42 @@ package com.greg.albumandgalleryfromapi.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.greg.albumandgalleryfromapi.R
 import com.greg.albumandgalleryfromapi.adapter.AlbumAdapter
-import com.greg.albumandgalleryfromapi.api.JsonPlaceHolderApi
-import com.greg.albumandgalleryfromapi.constant.Constant.Companion.BASE_URL
-import com.greg.albumandgalleryfromapi.model.Album
-import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.greg.albumandgalleryfromapi.api.RetrofitService
+import com.greg.albumandgalleryfromapi.databinding.ActivityMainBinding
+import com.greg.albumandgalleryfromapi.injection.ViewModelFactory
+import com.greg.albumandgalleryfromapi.repositories.AlbumRepository
+import com.greg.albumandgalleryfromapi.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var albumRecyclerView: RecyclerView
-    //private lateinit var retrofit: Retrofit
-    //private lateinit var jsonPlaceHolderApi: JsonPlaceHolderApi
-    //private lateinit var albumList: Call<List<Album>>
+    private lateinit var mainViewModel: MainViewModel
+    private lateinit var retrofitService: RetrofitService
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var albumAdapter: AlbumAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        albumRecyclerView = findViewById(R.id.album_recycler_view)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        retrofitService = RetrofitService.getInstance()
+        configureViewModel()
         configureAlbumRecyclerView()
-        //initializeRetrofit()
-        //initializeJsonPlaceHolderApi()
-        //getAlbumList()
+    }
+
+    //----------------------------------------------------------------------------------------------
+    //-------------------------------- Configure main view model -----------------------------------
+    //----------------------------------------------------------------------------------------------
+
+    private fun configureViewModel() {
+        mainViewModel = ViewModelProvider(this, ViewModelFactory(AlbumRepository(retrofitService))).get(MainViewModel::class.java)
+        mainViewModel.getAllAlbums()
     }
 
     //----------------------------------------------------------------------------------------------
@@ -35,36 +45,15 @@ class MainActivity : AppCompatActivity() {
     //----------------------------------------------------------------------------------------------
 
     private fun configureAlbumRecyclerView() {
-        val listOfAlbum = emptyList<Album>() // Temporary empty list to avoid a crash
-        albumRecyclerView.adapter = AlbumAdapter(listOfAlbum)
-        albumRecyclerView.layoutManager = LinearLayoutManager(this)
-        albumRecyclerView.setHasFixedSize(true)
+        albumAdapter = AlbumAdapter()
+        binding.albumRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.albumRecyclerView.adapter = albumAdapter
+        mainViewModel.albumList.observe(this, Observer {
+            albumAdapter.setAlbumList(it)
+        })
+
+        mainViewModel.errorMessage.observe(this, Observer {  })
+
+        mainViewModel.getAllAlbums()
     }
-
-    //----------------------------------------------------------------------------------------------
-    //-------------------------------- Initialize retrofit -----------------------------------------
-    //----------------------------------------------------------------------------------------------
-
-    //private fun initializeRetrofit() {
-    //    retrofit = Retrofit.Builder()
-    //            .baseUrl(BASE_URL)
-    //            .addConverterFactory(GsonConverterFactory.create())
-    //            .build()
-    //}
-
-    //----------------------------------------------------------------------------------------------
-    //-------------------------------- Initialize JsonPlaceHolderApi -------------------------------
-    //----------------------------------------------------------------------------------------------
-
-    //private fun initializeJsonPlaceHolderApi() {
-    //    jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi::class.java)
-    //}
-
-    //----------------------------------------------------------------------------------------------
-    //-------------------------------- Get album list from API -------------------------------------
-    //----------------------------------------------------------------------------------------------
-
-    //private fun getAlbumList() {
-    //    albumList = jsonPlaceHolderApi.getAllAlbums()
-    //}
 }
