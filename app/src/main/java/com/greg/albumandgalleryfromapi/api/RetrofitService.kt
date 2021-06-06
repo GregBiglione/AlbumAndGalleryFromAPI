@@ -12,8 +12,7 @@ import retrofit2.http.Query
 interface RetrofitService {
 
     @GET("albums")
-    fun getAllAlbums(
-                     @Query("_sort") sort: String,
+    fun getAllAlbums(@Query("_sort") sort: String,
                      @Query("_order") order: String): Call<List<Album>>
 
     @GET("users")
@@ -40,7 +39,7 @@ interface RetrofitService {
         }
 
         //------------------------------------------------------------------------------------------
-        //-------------------------------- Initialize JsonPlaceHolderApi ---------------------------
+        //-------------------------------- Initialize RetrofitService ------------------------------
         //------------------------------------------------------------------------------------------
 
         private fun getApi() {
