@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.greg.albumandgalleryfromapi.R
 import com.greg.albumandgalleryfromapi.adapter.AlbumAdapter
 import com.greg.albumandgalleryfromapi.api.RetrofitService
@@ -40,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this, ViewModelFactory(AlbumRepository(retrofitService),
                 AuthorRepository(retrofitService))).get(MainViewModel::class.java)
         mainViewModel.getAllAlbums()
+        mainViewModel.getAllAuthors()
     }
 
     //----------------------------------------------------------------------------------------------
@@ -52,6 +52,9 @@ class MainActivity : AppCompatActivity() {
         binding.albumRecyclerView.adapter = albumAdapter
         mainViewModel.albumList.observe(this, Observer {
             albumAdapter.setAlbumList(it)
+        })
+        mainViewModel.authorList.observe(this, Observer {
+            albumAdapter.setAuthorList(it)
         })
 
         mainViewModel.errorMessage.observe(this, Observer {  })

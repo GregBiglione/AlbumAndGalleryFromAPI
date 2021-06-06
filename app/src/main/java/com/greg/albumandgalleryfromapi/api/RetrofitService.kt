@@ -7,12 +7,11 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RetrofitService {
 
-    @GET("albums") //albums?title?&_sort=title&_order=asc
+    @GET("albums")
     fun getAllAlbums(
                      @Query("_sort") sort: String,
                      @Query("_order") order: String): Call<List<Album>>
