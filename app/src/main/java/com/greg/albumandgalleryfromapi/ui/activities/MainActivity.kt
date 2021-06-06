@@ -12,6 +12,7 @@ import com.greg.albumandgalleryfromapi.databinding.ActivityMainBinding
 import com.greg.albumandgalleryfromapi.injection.ViewModelFactory
 import com.greg.albumandgalleryfromapi.repositories.AlbumRepository
 import com.greg.albumandgalleryfromapi.repositories.AuthorRepository
+import com.greg.albumandgalleryfromapi.repositories.GalleryRepository
 import com.greg.albumandgalleryfromapi.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +38,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun configureViewModel() {
         mainViewModel = ViewModelProvider(this, ViewModelFactory(AlbumRepository(retrofitService),
-                AuthorRepository(retrofitService))).get(MainViewModel::class.java)
+            AuthorRepository(retrofitService),
+            GalleryRepository(retrofitService)
+        )).get(MainViewModel::class.java)
         mainViewModel.getAllAlbums()
         mainViewModel.getAllAuthors()
     }
