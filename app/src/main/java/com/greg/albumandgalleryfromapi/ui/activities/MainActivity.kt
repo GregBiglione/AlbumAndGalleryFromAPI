@@ -1,5 +1,6 @@
 package com.greg.albumandgalleryfromapi.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -9,11 +10,14 @@ import com.greg.albumandgalleryfromapi.R
 import com.greg.albumandgalleryfromapi.adapter.AlbumAdapter
 import com.greg.albumandgalleryfromapi.api.RetrofitService
 import com.greg.albumandgalleryfromapi.databinding.ActivityMainBinding
+import com.greg.albumandgalleryfromapi.event.AlbumToGalleryEvent
 import com.greg.albumandgalleryfromapi.injection.ViewModelFactory
 import com.greg.albumandgalleryfromapi.repositories.AlbumRepository
 import com.greg.albumandgalleryfromapi.repositories.AuthorRepository
-import com.greg.albumandgalleryfromapi.repositories.GalleryRepository
+import com.greg.albumandgalleryfromapi.repositories.PhotoRepository
 import com.greg.albumandgalleryfromapi.viewmodel.MainViewModel
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,10 +43,11 @@ class MainActivity : AppCompatActivity() {
     private fun configureViewModel() {
         mainViewModel = ViewModelProvider(this, ViewModelFactory(AlbumRepository(retrofitService),
             AuthorRepository(retrofitService),
-            GalleryRepository(retrofitService)
+            PhotoRepository(retrofitService)
         )).get(MainViewModel::class.java)
         mainViewModel.getAllAlbums()
         mainViewModel.getAllAuthors()
+        mainViewModel.getAllPhotos()
     }
 
     //----------------------------------------------------------------------------------------------
@@ -53,15 +58,39 @@ class MainActivity : AppCompatActivity() {
         albumAdapter = AlbumAdapter()
         binding.albumRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.albumRecyclerView.adapter = albumAdapter
-        mainViewModel.albumList.observe(this, Observer {
-            albumAdapter.setAlbumList(it)
+        mainViewModel.albumList.observe(this, Observer { album ->
+            albumAdapter.setAlbumList(album)
         })
-        mainViewModel.authorList.observe(this, Observer {
-            albumAdapter.setAuthorList(it)
+        mainViewModel.authorList.observe(this, Observer { author ->
+            albumAdapter.setAuthorList(author)
+        })
+        mainViewModel.photoList.observe(this, Observer { photo ->
+            albumAdapter.setGalleryList(photo)
         })
 
         mainViewModel.errorMessage.observe(this, Observer {  })
 
         mainViewModel.getAllAlbums()
+    }
+
+    //----------------------------------------------------------------------------------------------
+    //-------------------------------- Click on album item -----------------------------------------
+    //----------------------------------------------------------------------------------------------
+
+    @Subscribe
+    fun onClickedAlbum(event: AlbumToGalleryEvent){
+        val intent = Intent(this, GalleryActivity::class.java)
+        intent.putExtra("photos", event.album)
+        startActivity(intent)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 }

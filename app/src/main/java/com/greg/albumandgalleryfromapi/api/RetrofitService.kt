@@ -3,7 +3,7 @@ package com.greg.albumandgalleryfromapi.api
 import com.greg.albumandgalleryfromapi.constant.Constant.Companion.BASE_URL
 import com.greg.albumandgalleryfromapi.model.Album
 import com.greg.albumandgalleryfromapi.model.Author
-import com.greg.albumandgalleryfromapi.model.Gallery
+import com.greg.albumandgalleryfromapi.model.Photo
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,7 +20,7 @@ interface RetrofitService {
     fun getAllAuthors(): Call<List<Author>>
 
     @GET("photos")
-    fun getAllGalleries(): Call<List<Gallery>>
+    fun getAllPhotos(): Call<List<Photo>>
 
     companion object{
 

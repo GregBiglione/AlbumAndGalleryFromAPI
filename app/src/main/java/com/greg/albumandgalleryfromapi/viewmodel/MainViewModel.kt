@@ -4,21 +4,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.greg.albumandgalleryfromapi.model.Album
 import com.greg.albumandgalleryfromapi.model.Author
-import com.greg.albumandgalleryfromapi.model.Gallery
+import com.greg.albumandgalleryfromapi.model.Photo
 import com.greg.albumandgalleryfromapi.repositories.AlbumRepository
 import com.greg.albumandgalleryfromapi.repositories.AuthorRepository
-import com.greg.albumandgalleryfromapi.repositories.GalleryRepository
+import com.greg.albumandgalleryfromapi.repositories.PhotoRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel(private val albumRepository: AlbumRepository,
                     private val authorRepository: AuthorRepository,
-                    private val galleryRepository: GalleryRepository): ViewModel() {
+                    private val photoRepository: PhotoRepository): ViewModel() {
 
     val albumList = MutableLiveData<List<Album>>()
     val authorList = MutableLiveData<List<Author>>()
-    val galleryList = MutableLiveData<List<Gallery>>()
+    val photoList = MutableLiveData<List<Photo>>()
     val errorMessage = MutableLiveData<String>()
 
     //----------------------------------------------------------------------------------------------
@@ -59,14 +59,14 @@ class MainViewModel(private val albumRepository: AlbumRepository,
     //-------------------------------- Get all photos ----------------------------------------------
     //----------------------------------------------------------------------------------------------
 
-    fun getAllGalleries(){
-        val response = galleryRepository.getAllGalleries()
-        response.enqueue(object : Callback<List<Gallery>>{
-            override fun onResponse(call: Call<List<Gallery>>, response: Response<List<Gallery>>) {
-                galleryList.postValue(response.body())
+    fun getAllPhotos(){
+        val response = photoRepository.getAllPhotos()
+        response.enqueue(object : Callback<List<Photo>>{
+            override fun onResponse(call: Call<List<Photo>>, response: Response<List<Photo>>) {
+                photoList.postValue(response.body())
             }
 
-            override fun onFailure(call: Call<List<Gallery>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Photo>>, t: Throwable) {
                 errorMessage.postValue(t.message)
             }
         })

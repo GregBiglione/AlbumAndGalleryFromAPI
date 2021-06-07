@@ -4,13 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.greg.albumandgalleryfromapi.databinding.AlbumItemBinding
+import com.greg.albumandgalleryfromapi.event.AlbumToGalleryEvent
 import com.greg.albumandgalleryfromapi.model.Album
 import com.greg.albumandgalleryfromapi.model.Author
+import com.greg.albumandgalleryfromapi.model.Photo
+import org.greenrobot.eventbus.EventBus
 
 class AlbumAdapter: RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
 
     private var albumList = mutableListOf<Album>()
     private var authorList = mutableListOf<Author>()
+    private var photoList = mutableListOf<Photo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -23,6 +27,11 @@ class AlbumAdapter: RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
 
         holder.binding.albumName.text = currentAlbum.title
         holder.binding.authorName.text = getAuthorName(currentAlbum)
+
+        holder.binding.albumCardView.setOnClickListener {
+            EventBus.getDefault().post(AlbumToGalleryEvent(currentAlbum))
+            //EventBus.getDefault().post(getGallery(currentAlbum))
+        }
     }
 
     override fun getItemCount() = albumList.size
@@ -47,4 +56,18 @@ class AlbumAdapter: RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
         }
         return " "
     }
+
+    fun setGalleryList(photoList: List<Photo>){
+        this.photoList = photoList.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    //private fun getGallery(currentAlbum: Album) : Photo?{
+    //    for(photo in photoList){
+    //        if (currentAlbum.id == photo.albumId){
+    //            return photo
+    //        }
+    //    }
+    //    return null
+    //}
 }

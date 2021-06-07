@@ -2,7 +2,6 @@ package com.greg.albumandgalleryfromapi.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.greg.albumandgalleryfromapi.R
@@ -10,9 +9,10 @@ import com.greg.albumandgalleryfromapi.adapter.GalleryAdapter
 import com.greg.albumandgalleryfromapi.api.RetrofitService
 import com.greg.albumandgalleryfromapi.databinding.ActivityGalleryBinding
 import com.greg.albumandgalleryfromapi.injection.ViewModelFactory
+import com.greg.albumandgalleryfromapi.model.Album
 import com.greg.albumandgalleryfromapi.repositories.AlbumRepository
 import com.greg.albumandgalleryfromapi.repositories.AuthorRepository
-import com.greg.albumandgalleryfromapi.repositories.GalleryRepository
+import com.greg.albumandgalleryfromapi.repositories.PhotoRepository
 import com.greg.albumandgalleryfromapi.viewmodel.MainViewModel
 
 class GalleryActivity : AppCompatActivity() {
@@ -27,6 +27,7 @@ class GalleryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_gallery)
         binding = ActivityGalleryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        retrofitService = RetrofitService.getInstance()
         configureViewModel()
         configureGalleryRecyclerView()
     }
@@ -38,9 +39,10 @@ class GalleryActivity : AppCompatActivity() {
     private fun configureViewModel() {
         mainViewModel = ViewModelProvider(this, ViewModelFactory(AlbumRepository(retrofitService),
             AuthorRepository(retrofitService),
-            GalleryRepository(retrofitService)
+            PhotoRepository(retrofitService)
         )).get(MainViewModel::class.java)
-        mainViewModel.getAllGalleries()
+        mainViewModel.getAllAlbums()
+        mainViewModel.getAllPhotos()
     }
 
     //----------------------------------------------------------------------------------------------
@@ -48,11 +50,17 @@ class GalleryActivity : AppCompatActivity() {
     //----------------------------------------------------------------------------------------------
 
     private fun configureGalleryRecyclerView() {
-        galleryAdapter = GalleryAdapter()
+        val album: Album = intent.getParcelableExtra("photos")!!
+        galleryAdapter = GalleryAdapter(album)
         binding.galleryRecyclerView.layoutManager = GridLayoutManager(this, 4)
         binding.galleryRecyclerView.adapter = galleryAdapter
-        mainViewModel.galleryList.observe(this, Observer{
-            galleryAdapter.setGalleryList(it)
-        })
+        binding.galleryRecyclerView.setHasFixedSize(true)
+        //mainViewModel.galleryList.observe(this, Observer{ gallery ->
+        //    //galleryAdapter.setGalleryList(gallery)
+        //
+        //})
+        //mainViewModel.albumList.observe(this, Observer{ a ->
+        //    galleryAdapter.setAlbumList(a)
+        //})
     }
 }
