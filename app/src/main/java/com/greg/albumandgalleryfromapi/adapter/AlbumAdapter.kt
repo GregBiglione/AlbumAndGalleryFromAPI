@@ -16,6 +16,8 @@ class AlbumAdapter: RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
     private var authorList = mutableListOf<Author>()
     private var photoList = mutableListOf<Photo>()
 
+    private var photoInAlbumList = generatePhotoList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val itemView = LayoutInflater.from(parent.context)
         val binding = AlbumItemBinding.inflate(itemView, parent, false)
@@ -29,7 +31,7 @@ class AlbumAdapter: RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
         holder.binding.authorName.text = getAuthorName(currentAlbum)
 
         holder.binding.albumCardView.setOnClickListener {
-            EventBus.getDefault().post(AlbumToGalleryEvent(currentAlbum))
+            EventBus.getDefault().post(AlbumToGalleryEvent(getPhoto(currentAlbum)))
             //EventBus.getDefault().post(getGallery(currentAlbum))
         }
     }
@@ -57,11 +59,24 @@ class AlbumAdapter: RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
         return " "
     }
 
-    fun setGalleryList(photoList: List<Photo>){
+    fun setPhotoList(photoList: List<Photo>){
         this.photoList = photoList.toMutableList()
         notifyDataSetChanged()
     }
 
+    fun getPhoto(currentAlbum: Album) : ArrayList<Photo>{
+        photoInAlbumList.clear()
+        for (photo in photoList){
+            if(currentAlbum.id == photo.albumId){
+                photoInAlbumList.add(photo)
+            }
+        }
+        return photoInAlbumList
+    }
+
+    private fun generatePhotoList(): ArrayList<Photo>{
+        return ArrayList()
+    }
     //private fun getGallery(currentAlbum: Album) : Photo?{
     //    for(photo in photoList){
     //        if (currentAlbum.id == photo.albumId){

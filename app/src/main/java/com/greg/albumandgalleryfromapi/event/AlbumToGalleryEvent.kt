@@ -1,5 +1,5 @@
 package com.greg.albumandgalleryfromapi.event
 
-import com.greg.albumandgalleryfromapi.model.Album
+import com.greg.albumandgalleryfromapi.model.Photo
 
-data class AlbumToGalleryEvent(val album: Album) {}
+data class AlbumToGalleryEvent(val photoList: ArrayList<Photo>) {}

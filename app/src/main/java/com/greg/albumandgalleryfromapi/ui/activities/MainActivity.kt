@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             albumAdapter.setAuthorList(author)
         })
         mainViewModel.photoList.observe(this, Observer { photo ->
-            albumAdapter.setGalleryList(photo)
+            albumAdapter.setPhotoList(photo)
         })
 
         mainViewModel.errorMessage.observe(this, Observer {  })
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     @Subscribe
     fun onClickedAlbum(event: AlbumToGalleryEvent){
         val intent = Intent(this, GalleryActivity::class.java)
-        intent.putExtra("photos", event.album)
+        intent.putExtra("photos", event.photoList)
         startActivity(intent)
     }
 

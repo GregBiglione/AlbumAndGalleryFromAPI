@@ -8,9 +8,9 @@ import com.greg.albumandgalleryfromapi.databinding.GalleryItemBinding
 import com.greg.albumandgalleryfromapi.model.Album
 import com.greg.albumandgalleryfromapi.model.Photo
 
-class GalleryAdapter(private var album: Album/*private val gallery: Gallery*/): RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
+class GalleryAdapter(private var photoListInAlbum: List<Photo>): RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
 
-    private var galleryList = mutableListOf<Photo>()
+    private var photoList = mutableListOf<Photo>()
     private var albumList = mutableListOf<Album>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
@@ -20,33 +20,34 @@ class GalleryAdapter(private var album: Album/*private val gallery: Gallery*/): 
     }
 
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {
-        val currentGallery = galleryList[position]
+        val currentGallery = photoList[position]
 
         Glide.with(holder.binding.galleryPhoto)
-            .load(getPhotos(currentGallery))
+                .load(currentGallery.thumbnailUrl)
+            //.load(getPhotos(currentGallery))
             .into(holder.binding.galleryPhoto)
     }
 
-    override fun getItemCount() = galleryList.size
+    override fun getItemCount() = photoList.size
 
     class GalleryViewHolder(val binding: GalleryItemBinding): RecyclerView.ViewHolder(binding.root){}
 
-    fun setGalleryList(photoList: List<Photo>){
-        this.galleryList = photoList.toMutableList()
-        notifyDataSetChanged()
-    }
+    //fun setPhotoList(photoList: List<Photo>){
+    //    this.photoList = photoList.toMutableList()
+    //    notifyDataSetChanged()
+    //}
+//
+    //fun setAlbumList(albumList: List<Album>){
+    //    this.albumList = albumList.toMutableList()
+    //    notifyDataSetChanged()
+    //}
 
-    fun setAlbumList(albumList: List<Album>){
-        this.albumList = albumList.toMutableList()
-        notifyDataSetChanged()
-    }
-
-    private fun getPhotos(currentPhoto: Photo) : String{
-        for (album in albumList){
-            if (currentPhoto.albumId == album.id){
-                return currentPhoto.thumbnailUrl
-            }
-        }
-        return ""
-    }
+    //private fun getPhotos(currentPhoto: Photo) : String{
+    //    for (album in albumList){
+    //        if (currentPhoto.albumId == album.id){
+    //            return currentPhoto.thumbnailUrl!!
+    //        }
+    //    }
+    //    return ""
+    //}
 }
