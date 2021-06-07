@@ -8,7 +8,7 @@ import com.greg.albumandgalleryfromapi.databinding.GalleryItemBinding
 import com.greg.albumandgalleryfromapi.model.Album
 import com.greg.albumandgalleryfromapi.model.Photo
 
-class GalleryAdapter(private var photoListInAlbum: List<Photo>): RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
+class GalleryAdapter(private var photos: List<Photo>): RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
 
     private var photoList = mutableListOf<Photo>()
     private var albumList = mutableListOf<Album>()
@@ -20,7 +20,7 @@ class GalleryAdapter(private var photoListInAlbum: List<Photo>): RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {
-        val currentGallery = photoList[position]
+        val currentGallery = photos[position]
 
         Glide.with(holder.binding.galleryPhoto)
                 .load(currentGallery.thumbnailUrl)
@@ -28,7 +28,7 @@ class GalleryAdapter(private var photoListInAlbum: List<Photo>): RecyclerView.Ad
             .into(holder.binding.galleryPhoto)
     }
 
-    override fun getItemCount() = photoList.size
+    override fun getItemCount() = photos.size
 
     class GalleryViewHolder(val binding: GalleryItemBinding): RecyclerView.ViewHolder(binding.root){}
 
@@ -37,9 +37,18 @@ class GalleryAdapter(private var photoListInAlbum: List<Photo>): RecyclerView.Ad
     //    notifyDataSetChanged()
     //}
 //
-    //fun setAlbumList(albumList: List<Album>){
-    //    this.albumList = albumList.toMutableList()
-    //    notifyDataSetChanged()
+    fun setAlbumList(albumList: List<Album>){
+        this.albumList = albumList.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    //private fun getPhotos(currentPhoto: Photo) : String{
+    //    for (album in albumList){
+    //        if (currentPhoto.albumId == album.id){
+    //            return currentPhoto.thumbnailUrl
+    //        }
+    //    }
+    //    return ""
     //}
 
     //private fun getPhotos(currentPhoto: Photo) : String{

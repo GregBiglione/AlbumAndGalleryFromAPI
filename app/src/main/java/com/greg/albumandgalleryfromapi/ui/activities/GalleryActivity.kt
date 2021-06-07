@@ -2,6 +2,7 @@ package com.greg.albumandgalleryfromapi.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.greg.albumandgalleryfromapi.R
@@ -41,6 +42,9 @@ class GalleryActivity : AppCompatActivity() {
             AuthorRepository(retrofitService),
             PhotoRepository(retrofitService)
         )).get(MainViewModel::class.java)
+        mainViewModel.albumList.observe(this, Observer { album ->
+            galleryAdapter.setAlbumList(album)
+        })
         mainViewModel.getAllAlbums()
         mainViewModel.getAllPhotos()
     }
