@@ -1,6 +1,7 @@
 package com.greg.albumandgalleryfromapi.ui.activities
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +29,7 @@ class GalleryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_gallery)
         binding = ActivityGalleryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         //retrofitService = RetrofitService.getInstance()
         //configureViewModel()
         configureGalleryRecyclerView()
@@ -59,5 +61,17 @@ class GalleryActivity : AppCompatActivity() {
         binding.galleryRecyclerView.layoutManager = GridLayoutManager(this, 4)
         binding.galleryRecyclerView.adapter = galleryAdapter
         //binding.galleryRecyclerView.setHasFixedSize(true)
+    }
+
+    //----------------------------------------------------------------------------------------------
+    //-------------------------------- Back button to Main activity --------------------------------
+    //----------------------------------------------------------------------------------------------
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
