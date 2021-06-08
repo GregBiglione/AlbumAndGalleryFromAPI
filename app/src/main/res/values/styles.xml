@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--///////////////////////////////// Album author style S///////////////////////////////////-->
+    <!--///////////////////////////////// Album title style S ///////////////////////////////////-->
     <style name="album_title_style_S">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!--///////////////////////////////// Album author style S///////////////////////////////////-->
+    <!--///////////////////////////////// Album author style S //////////////////////////////////-->
     <style name="album_author_style_S">
         <item name="android:textColor">@color/album_author</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">italic</item>
     </style>
 
-    <!--///////////////////////////////// Album author style ////////////////////////////////////-->
+    <!--///////////////////////////////// Album title style N ///////////////////////////////////-->
    <style name="album_title_style_N">
        <item name="android:textColor">@color/black</item>
        <item name="android:textSize">18sp</item>
        <item name="android:textStyle">bold</item>
    </style>
 
-    <!--///////////////////////////////// Album author style ////////////////////////////////////-->
+    <!--///////////////////////////////// Album author style N //////////////////////////////////-->
     <style name="album_author_style_N">
         <item name="android:textColor">@color/album_author</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">italic</item>
     </style>
 
+    <!--///////////////////////////////// Album title style L ///////////////////////////////////-->
+    <style name="album_title_style_L">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--///////////////////////////////// Album author style L //////////////////////////////////-->
+    <style name="album_author_style_L">
+        <item name="android:textColor">@color/album_author</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
 
 </resources>
