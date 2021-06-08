@@ -9,10 +9,7 @@ import com.greg.albumandgalleryfromapi.model.Album
 import com.greg.albumandgalleryfromapi.model.Photo
 import com.squareup.picasso.Picasso
 
-class GalleryAdapter(private var photoList: List<Photo>/*private var photoList: MutableList<Photo> = mutableListOf()*/): RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
-
-    //private var photoList = mutableListOf<Photo>()
-    //private var albumList = mutableListOf<Album>()
+class GalleryAdapter(private var photoList: List<Photo>): RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -31,23 +28,4 @@ class GalleryAdapter(private var photoList: List<Photo>/*private var photoList: 
     override fun getItemCount() =photoList.size //photos.size
 
     class GalleryViewHolder(val binding: GalleryItemBinding): RecyclerView.ViewHolder(binding.root){}
-
-    //fun setPhotoList(photoList: List<Photo>){
-    //    this.photoList = photoList.toMutableList()
-    //    notifyDataSetChanged()
-    //}
-//
-    //fun setAlbumList(albumList: List<Album>){
-    //    this.albumList = albumList.toMutableList()
-    //    notifyDataSetChanged()
-    //}
-
-    //private fun getPhotos(currentPhoto: Photo) : String{
-    //    for (album in albumList){
-    //        if (currentPhoto.albumId == album.id){
-    //            return currentPhoto.thumbnailUrl!!
-    //        }
-    //    }
-    //    return ""
-    //}
 }

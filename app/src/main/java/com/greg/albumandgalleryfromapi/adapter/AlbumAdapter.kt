@@ -32,7 +32,6 @@ class AlbumAdapter: RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
 
         holder.binding.albumCardView.setOnClickListener {
             EventBus.getDefault().post(AlbumToGalleryEvent(getPhoto(currentAlbum)))
-            //EventBus.getDefault().post(getGallery(currentAlbum))
         }
     }
 
@@ -77,12 +76,4 @@ class AlbumAdapter: RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
     private fun generatePhotoList(): ArrayList<Photo>{
         return ArrayList()
     }
-    //private fun getGallery(currentAlbum: Album) : Photo?{
-    //    for(photo in photoList){
-    //        if (currentAlbum.id == photo.albumId){
-    //            return photo
-    //        }
-    //    }
-    //    return null
-    //}
 }
