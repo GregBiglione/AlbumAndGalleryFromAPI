@@ -69,7 +69,6 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.errorMessage.observe(this, Observer {  })
 
         mainViewModel.getAllAlbums()
-        //mainViewModel.getAllPhotos()
     }
 
     //----------------------------------------------------------------------------------------------
