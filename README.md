@@ -1,13 +1,14 @@
-<b>AlbumAndGalleryFromAPI</b> is an Android Kotlin application xho displays data from a REST API with Reftofit</br>
+<b>AlbumAndGalleryFromAPI</b> is an Android Kotlin application who displays data from a REST API with Reftofit</br>
 
 <h2>Application features</h2></br>
 <ul>
   <li>Display a list of albums in cardiew with album name & his author name from a REST API</li>
+  <li>Albums sorted alphabetically</li>
   <li>Display a grid of photos from a REST API for each album clicking on an album</li>
   <li>MVVM</li>
   <li>Injection</li>
   <li>View Model Factory</li>
-  <li>Retrieves the data from the REST API with Retrofit</li>
+  <li>Retrieve the datas from the REST API with Retrofit</li>
 </ul>
 
 <h2>Application demo</h2></br>
@@ -24,6 +25,7 @@
  <li><a href="https://developer.android.com/jetpack/androidx/releases/lifecycle">LiveData & Viewmodel</a></li>
  <li><a href="https://developer.android.com/jetpack/androidx/releases/cardview?hl=fr">Cardview</a></li>
  <li><a href="https://github.com/greenrobot/EventBus">EventBus</a></li>
+  <li><a href="https://developer.android.com/training/testing/espresso/setup">Espresso</a></li>
 </ul>
 
 <h2>API</h2></br>
