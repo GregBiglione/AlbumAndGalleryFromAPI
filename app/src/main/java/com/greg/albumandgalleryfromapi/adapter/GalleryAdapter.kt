@@ -24,7 +24,7 @@ class GalleryAdapter(private var photoList: List<Photo>/*private var photoList: 
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {
         val currentGallery = photoList[position]//photos[position]
 
-        Glide.with(holder.itemView)
+        Glide.with(holder.binding.galleryPhoto)
                 .load(currentGallery.thumbnailUrl)
             //.load(getPhotos(currentGallery))
             .into(holder.binding.galleryPhoto)

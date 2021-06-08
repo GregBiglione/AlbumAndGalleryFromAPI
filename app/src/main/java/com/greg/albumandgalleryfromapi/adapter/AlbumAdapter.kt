@@ -64,7 +64,7 @@ class AlbumAdapter: RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun getPhoto(currentAlbum: Album) : ArrayList<Photo>{
+    private fun getPhoto(currentAlbum: Album) : ArrayList<Photo>{
         photoInAlbumList.clear()
         for (photo in photoList){
             if(currentAlbum.id == photo.albumId){
