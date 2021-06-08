@@ -29,7 +29,7 @@ class GalleryActivity : AppCompatActivity() {
         binding = ActivityGalleryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         retrofitService = RetrofitService.getInstance()
-        configureViewModel()
+        //configureViewModel()
         configureGalleryRecyclerView()
     }
 
@@ -42,9 +42,9 @@ class GalleryActivity : AppCompatActivity() {
             AuthorRepository(retrofitService),
             PhotoRepository(retrofitService)
         )).get(MainViewModel::class.java)
-        mainViewModel.albumList.observe(this, Observer { album ->
-            galleryAdapter.setAlbumList(album)
-        })
+        //mainViewModel.albumList.observe(this, Observer { album ->
+        //    galleryAdapter.setAlbumList(album)
+        //})
         mainViewModel.getAllAlbums()
         mainViewModel.getAllPhotos()
     }
@@ -58,6 +58,6 @@ class GalleryActivity : AppCompatActivity() {
         galleryAdapter = GalleryAdapter(photo)
         binding.galleryRecyclerView.layoutManager = GridLayoutManager(this, 4)
         binding.galleryRecyclerView.adapter = galleryAdapter
-        binding.galleryRecyclerView.setHasFixedSize(true)
+        //binding.galleryRecyclerView.setHasFixedSize(true)
     }
 }

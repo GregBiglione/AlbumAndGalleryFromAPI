@@ -11,6 +11,7 @@ import com.greg.albumandgalleryfromapi.adapter.AlbumAdapter
 import com.greg.albumandgalleryfromapi.api.RetrofitService
 import com.greg.albumandgalleryfromapi.databinding.ActivityMainBinding
 import com.greg.albumandgalleryfromapi.event.AlbumToGalleryEvent
+import com.greg.albumandgalleryfromapi.injection.Injection
 import com.greg.albumandgalleryfromapi.injection.ViewModelFactory
 import com.greg.albumandgalleryfromapi.repositories.AlbumRepository
 import com.greg.albumandgalleryfromapi.repositories.AuthorRepository
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var retrofitService: RetrofitService
     private lateinit var binding: ActivityMainBinding
     private lateinit var albumAdapter: AlbumAdapter
+    private lateinit var injection: Injection
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         retrofitService = RetrofitService.getInstance()
+        injection = Injection()
         configureViewModel()
         configureAlbumRecyclerView()
     }
@@ -41,10 +44,8 @@ class MainActivity : AppCompatActivity() {
     //----------------------------------------------------------------------------------------------
 
     private fun configureViewModel() {
-        mainViewModel = ViewModelProvider(this, ViewModelFactory(AlbumRepository(retrofitService),
-            AuthorRepository(retrofitService),
-            PhotoRepository(retrofitService)
-        )).get(MainViewModel::class.java)
+        val viewModelFactory: ViewModelFactory = injection.provideViewModelFactory(this)
+        mainViewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         mainViewModel.getAllAlbums()
         mainViewModel.getAllAuthors()
         mainViewModel.getAllPhotos()
@@ -71,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.errorMessage.observe(this, Observer {  })
 
         mainViewModel.getAllAlbums()
+        //mainViewModel.getAllPhotos()
     }
 
     //----------------------------------------------------------------------------------------------
