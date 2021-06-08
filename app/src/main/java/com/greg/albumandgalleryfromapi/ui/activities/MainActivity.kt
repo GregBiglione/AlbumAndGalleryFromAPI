@@ -13,9 +13,6 @@ import com.greg.albumandgalleryfromapi.databinding.ActivityMainBinding
 import com.greg.albumandgalleryfromapi.event.AlbumToGalleryEvent
 import com.greg.albumandgalleryfromapi.injection.Injection
 import com.greg.albumandgalleryfromapi.injection.ViewModelFactory
-import com.greg.albumandgalleryfromapi.repositories.AlbumRepository
-import com.greg.albumandgalleryfromapi.repositories.AuthorRepository
-import com.greg.albumandgalleryfromapi.repositories.PhotoRepository
 import com.greg.albumandgalleryfromapi.viewmodel.MainViewModel
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
