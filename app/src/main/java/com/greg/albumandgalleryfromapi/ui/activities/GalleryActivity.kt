@@ -18,8 +18,8 @@ import com.greg.albumandgalleryfromapi.viewmodel.MainViewModel
 
 class GalleryActivity : AppCompatActivity() {
 
-    private lateinit var mainViewModel: MainViewModel
-    private lateinit var retrofitService: RetrofitService
+    //private lateinit var mainViewModel: MainViewModel
+    //private lateinit var retrofitService: RetrofitService
     private lateinit var binding: ActivityGalleryBinding
     private lateinit var galleryAdapter: GalleryAdapter
 
@@ -28,26 +28,26 @@ class GalleryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_gallery)
         binding = ActivityGalleryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        retrofitService = RetrofitService.getInstance()
+        //retrofitService = RetrofitService.getInstance()
         //configureViewModel()
         configureGalleryRecyclerView()
     }
 
-    //----------------------------------------------------------------------------------------------
-    //-------------------------------- Configure main view model -----------------------------------
-    //----------------------------------------------------------------------------------------------
-
-    private fun configureViewModel() {
-        mainViewModel = ViewModelProvider(this, ViewModelFactory(AlbumRepository(retrofitService),
-            AuthorRepository(retrofitService),
-            PhotoRepository(retrofitService)
-        )).get(MainViewModel::class.java)
-        //mainViewModel.albumList.observe(this, Observer { album ->
-        //    galleryAdapter.setAlbumList(album)
-        //})
-        mainViewModel.getAllAlbums()
-        mainViewModel.getAllPhotos()
-    }
+    ////----------------------------------------------------------------------------------------------
+    ////-------------------------------- Configure main view model -----------------------------------
+    ////----------------------------------------------------------------------------------------------
+//
+    //private fun configureViewModel() {
+    //    mainViewModel = ViewModelProvider(this, ViewModelFactory(AlbumRepository(retrofitService),
+    //        AuthorRepository(retrofitService),
+    //        PhotoRepository(retrofitService)
+    //    )).get(MainViewModel::class.java)
+    //    //mainViewModel.albumList.observe(this, Observer { album ->
+    //    //    galleryAdapter.setAlbumList(album)
+    //    //})
+    //    mainViewModel.getAllAlbums()
+    //    mainViewModel.getAllPhotos()
+    //}
 
     //----------------------------------------------------------------------------------------------
     //-------------------------------- Configure gallery recyclerview ------------------------------

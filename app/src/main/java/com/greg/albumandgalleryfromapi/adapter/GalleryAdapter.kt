@@ -25,7 +25,7 @@ class GalleryAdapter(private var photoList: List<Photo>/*private var photoList: 
 
         Picasso.get()
             .load(currentGallery.thumbnailUrl)
-            .into(holder.binding.galleryPhoto);
+            .into(holder.binding.galleryPhoto)
     }
 
     override fun getItemCount() =photoList.size //photos.size

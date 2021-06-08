@@ -8,18 +8,17 @@ import com.greg.albumandgalleryfromapi.repositories.PhotoRepository
 
 class Injection {
 
+    private val retrofitService: RetrofitService = RetrofitService.getInstance()
+
     private fun provideAlbumRepository(): AlbumRepository{
-        val retrofitService: RetrofitService = RetrofitService.getInstance()
         return AlbumRepository(retrofitService)
     }
 
     private fun provideAuthorRepository(): AuthorRepository{
-        val retrofitService: RetrofitService = RetrofitService.getInstance()
         return AuthorRepository(retrofitService)
     }
 
     private fun providePhotoRepository(): PhotoRepository{
-        val retrofitService: RetrofitService = RetrofitService.getInstance()
         return PhotoRepository(retrofitService)
     }
 
