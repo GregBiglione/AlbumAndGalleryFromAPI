@@ -3,12 +3,11 @@ package com.greg.albumandgalleryfromapi.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.greg.albumandgalleryfromapi.R
 import com.greg.albumandgalleryfromapi.databinding.GalleryItemBinding
 import com.greg.albumandgalleryfromapi.model.Album
 import com.greg.albumandgalleryfromapi.model.Photo
+import com.squareup.picasso.Picasso
 
 class GalleryAdapter(private var photoList: List<Photo>/*private var photoList: MutableList<Photo> = mutableListOf()*/): RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
 
@@ -24,10 +23,9 @@ class GalleryAdapter(private var photoList: List<Photo>/*private var photoList: 
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {
         val currentGallery = photoList[position]//photos[position]
 
-        Glide.with(holder.binding.galleryPhoto)
-                .load(currentGallery.thumbnailUrl)
-            //.load(getPhotos(currentGallery))
-            .into(holder.binding.galleryPhoto)
+        Picasso.get()
+            .load(currentGallery.thumbnailUrl)
+            .into(holder.binding.galleryPhoto);
     }
 
     override fun getItemCount() =photoList.size //photos.size
